@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "192149858763",
+    "firebase_url": "https://jumpstart-db0c6.firebaseio.com",
+    "project_id": "jumpstart-db0c6",
+    "storage_bucket": "jumpstart-db0c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192149858763:android:4a9c0812adef5170",
+        "android_client_info": {
+          "package_name": "com.example.rapsk.jumpstart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192149858763-ou2lnhps9fsu9g8a231ujgjffrmg53sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeCcUtO5GuTjK-FwIQ6cp3cxxtnhe6pmM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
