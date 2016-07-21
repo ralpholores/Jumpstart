@@ -16,13 +16,13 @@ public class SME {
     public String[] project_list;
     public String description;
 
-    public SME(int id, String company_name, String ads_url, String email_address, String description) {
+    public SME(int id, String company_name, String[] project_list,String ads_url, String email_address, String description) {
         this.id = id;
         this.company_name = company_name;
         this.ads_url = ads_url;
         this.email_address = email_address;
 //        this.location = location;
-//        this.project_list = project_list;
+        this.project_list = project_list;
         this.description = description;
     }
 

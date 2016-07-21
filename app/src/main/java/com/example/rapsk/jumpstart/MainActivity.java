@@ -9,10 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.firebase.auth.api.model.StringList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,16 +23,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mFirst;
+    private ListView mListView;
+    ArrayList<String> mSmes = new ArrayList<>();
     private static final String TAG = "MainActivity";
 
 
     private DatabaseReference mDatabase;
+    Firebase mRef;
 
 
     @Override
@@ -38,16 +49,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Firebase mRef;
-        mRef = new Firebase("https://jumpstart-db0c6.firebaseio.com/Jumpstart");
 
+        mRef = new Firebase("https://jumpstart-db0c6.firebaseio.com/Jumpstart");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Toast.makeText(this,""+mDatabase,Toast.LENGTH_LONG).show();
 
-
+        mFirst = (TextView) findViewById(R.id.first);
+        mListView = (ListView) findViewById(R.id.ListView);
         Map<String, SME> smes = new HashMap<String, SME>();
-        smes.put("SME's", new SME(1,"USJ-R","youtube.com/asasdas","oloresralph@gmail.com","Adelante !"));
+        smes.put("SME's", new SME(1,"USJ-R",new String[]{"ROBOT","CAR"},"youtube.com/asasdas","oloresralph@gmail.com","Adelante !"));
         mRef.child("SME's").setValue(smes);
+        Map<String, SME> smes2 = new HashMap<String, SME>();
+        smes2.put("SME's", new SME(2,"Jollibee",new String[]{"New Dessert","New Food"},"youtube.com/1mn79x","ralpholores@gmail.com","Bida ang sarap"));
+
 
         Map<String, Investor> investors = new HashMap<String, Investor>();
         investors.put("Investors", new Investor(1,"Ralph","Olores","oloresralph@gmail.com","USJ-R BASAK"));
@@ -62,6 +76,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mSmes);
+        mListView.setAdapter(adapter);
+        Firebase smeRef = mRef.child("SME's").child("SME's");
+        smeRef.addValueEventListener(new com.firebase.client.ValueEventListener() {
+            @Override
+            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+               mFirst.setText("List of SME's with their projects");
+               Map<String,String> map = dataSnapshot.getValue(Map.class);
+               String smeName = map.get("company_name");
+               List<String> projectList = new ArrayList<String>();
+                projectList.add(map.get("project_list"));
+                mSmes.add(smeName);
+                mSmes.add(projectList.get(0));
+
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     private void writeSME(int id, String company_name, String ads_url, String email_address, String[] location, String[] project_list, String description){
