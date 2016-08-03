@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity{
 
     private TextView mFirst,mStatus,mDetails;
     private EditText mId,mCompanyName,mProjectName,mProjectName2,mUrl,mDesc,mEmail,mEmailField,mPasswordField ;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-
+    SME[] sme = new SME[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         mRef = new Firebase("https://jumpstart-db0c6.firebaseio.com/Jumpstart");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        Toast.makeText(this,""+mDatabase,Toast.LENGTH_LONG).show();
+      //  mDatabase = FirebaseDatabase.getInstance().getReference();
+       // Toast.makeText(this,""+mDatabase,Toast.LENGTH_LONG).show();
 
-        mFirst = (TextView) findViewById(R.id.first);
+//        mFirst = (TextView) findViewById(R.id.first);
         mId = (EditText) findViewById(R.id.smeId);
         mCompanyName = (EditText) findViewById(R.id.companyName);
         mProjectName = (EditText) findViewById(R.id.projectOne);
@@ -77,36 +77,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUrl = (EditText) findViewById(R.id.url);
         mDesc = (EditText) findViewById(R.id.description);
         mEmail = (EditText) findViewById(R.id.emailAddress);
-        mListView = (ListView) findViewById(R.id.ListView);
+//        mListView = (ListView) findViewById(R.id.ListView);
+//
+//        mEmailField = (EditText) findViewById(R.id.email);
+//        mPasswordField = (EditText) findViewById(R.id.password);
+//        mStatus = (TextView) findViewById(R.id.status);
+//        mDetails = (TextView) findViewById(R.id.detail);
+//        mAuth = FirebaseAuth.getInstance();
+//        findViewById(R.id.signIn).setOnClickListener(this);
+//        findViewById(R.id.createAccount).setOnClickListener(this);
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if(user != null){
+//                    //User is signed in.
+//                    Log.d("TAG", "onAuthstateChanged: sign_in: " + user.getUid());
+//                }
+//                else{
+//                    Log.d("TAG", "onAuthstateChanged: signed_out");
+//                }
+//            }
+//            updateUI(user);
+//        };
 
-        mEmailField = (EditText) findViewById(R.id.email);
-        mPasswordField = (EditText) findViewById(R.id.password);
-        mStatus = (TextView) findViewById(R.id.status);
-        mDetails = (TextView) findViewById(R.id.detail);
-        mAuth = FirebaseAuth.getInstance();
-        findViewById(R.id.signIn).setOnClickListener(this);
-        findViewById(R.id.createAccount).setOnClickListener(this);
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    //User is signed in.
-                    Log.d("TAG", "onAuthstateChanged: sign_in: " + user.getUid());
-                }
-                else{
-                    Log.d("TAG", "onAuthstateChanged: signed_out");
-                }
-            }
-            updateUI(user);
-        };
-        SME[] sme = new SME[2];
-        sme[0] = new SME(1,"USJ-R",new String[]{"ROBOT","CAR"},"youtube.com/asasdas","oloresralph@gmail.com","Adelante !");
-        sme[1] = new SME(2,"Jollibee",new String[]{"New Dessert","New Food"},"youtube.com/1mn79x","ralpholores@gmail.com","Bida ang sarap");
 
-        Map<String, SME[]> smes = new HashMap<String, SME[]>();
-        smes.put("SME's",sme);
-        mRef.child("SME's").setValue(sme);
 
 
 //        Map<String, Investor> investors = new HashMap<String, Investor>();
@@ -119,6 +114,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                String id = mId.getText().toString();
+                String smeName = mCompanyName.getText().toString();
+                String project1 = mProjectName.getText().toString();
+                String project2 = mProjectName2.getText().toString();
+                String[] list = new String[]{project1,project2};
+                String ads_url = mUrl.getText().toString();
+                String email = mEmail.getText().toString();
+                String desc = mDesc.getText().toString();
+                sme[0] = new SME(id,smeName,list,ads_url,email,desc);
+                Map<String, SME[]> smes = new HashMap<String, SME[]>();
+                smes.put("SME's",sme);
+                mRef.child("SME's").setValue(sme);
+
             }
         });
 
@@ -127,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+//        mAuth.addAuthStateListener(mAuthListener);
 //        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mSmes);
 //        mListView.setAdapter(adapter);
 //        Firebase smeRef = mRef.child("SME's").child("SME's");
@@ -152,107 +160,107 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        });
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(mAuthListener != null){
-            mAuth.removeAuthStateListener(mAuthListener) ;
-        }
-    }
-
-
-    private void createAccount(String email,String password){
-        Log.d("TAG","createAccount: " + email);
-        if(!validateForm()){
-            return;
-        }
-
-
-        //start create user with email
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d("TAG","createUserWithEmail:onComplete: " + task.isSuccessful());
-
-                //if sign in fails,display a message to the user
-                if(!task.isSuccessful()){
-                    Toast.makeText(MainActivity.this,"Authentication failed.",Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
-    }
-
-    private void signIn(String email, String password){
-            Log.d("TAG", "signIn: " + email);
-        if (!validateForm()){
-            return;
-        }
-
-
-
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d("TAG", "signInWithEmail:onComplete: " + task.isSuccessful());
-
-                //if fails
-                if(!task.isSuccessful()){
-                    Log.w("TAG", "signInWithEmail",task.getException());
-                    Toast.makeText(MainActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-    }
-
-    private void signOut(){
-        mAuth.signOut();
-        updateUI(null);
-    }
-
-    private boolean validateForm(){
-        boolean valid = true;
-
-        String email = mEmailField.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            mEmail.setError("Required");
-            valid = false;
-        }else {
-            mEmail.setError(null);
-        }
-
-        String password = mPasswordField.getText().toString();
-        if(TextUtils.isEmpty(password)){
-            mPasswordField.setError("Required");
-            valid = false;
-        }else{
-            mPasswordField.setError(null);
-        }
-        return valid;
-
-    }
-
-    private void updateUI(FirebaseUser user){
-
-        if(user != null){
-            mStatus.setText("Email User: " + user.getEmail());
-            mDetails.setText("Firebase User: " + user.getUid());
-
-            findViewById(R.id.buttons).setVisibility(View.GONE);
-            findViewById(R.id.email).setVisibility(View.GONE);
-            findViewById(R.id.password).setVisibility(View.GONE);
-            findViewById(R.id.signOut).setVisibility(View.VISIBLE);
-        }else {
-            mStatus.setText("Signed Out");
-            mDetails.setText(null);
-
-            findViewById(R.id.buttons).setVisibility(View.VISIBLE);
-            findViewById(R.id.email).setVisibility(View.VISIBLE);
-            findViewById(R.id.password).setVisibility(View.VISIBLE);
-        }
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        if(mAuthListener != null){
+//            mAuth.removeAuthStateListener(mAuthListener) ;
+//        }
+//    }
+//
+//
+//    private void createAccount(String email,String password){
+//        Log.d("TAG","createAccount: " + email);
+//        if(!validateForm()){
+//            return;
+//        }
+//
+//
+//        //start create user with email
+//        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                Log.d("TAG","createUserWithEmail:onComplete: " + task.isSuccessful());
+//
+//                //if sign in fails,display a message to the user
+//                if(!task.isSuccessful()){
+//                    Toast.makeText(MainActivity.this,"Authentication failed.",Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//            }
+//        });
+//    }
+//
+//    private void signIn(String email, String password){
+//            Log.d("TAG", "signIn: " + email);
+//        if (!validateForm()){
+//            return;
+//        }
+//
+//
+//
+//        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                Log.d("TAG", "signInWithEmail:onComplete: " + task.isSuccessful());
+//
+//                //if fails
+//                if(!task.isSuccessful()){
+//                    Log.w("TAG", "signInWithEmail",task.getException());
+//                    Toast.makeText(MainActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
+//    }
+//
+//    private void signOut(){
+//        mAuth.signOut();
+//        updateUI(null);
+//    }
+//
+//    private boolean validateForm(){
+//        boolean valid = true;
+//
+//        String email = mEmailField.getText().toString();
+//        if (TextUtils.isEmpty(email)) {
+//            mEmail.setError("Required");
+//            valid = false;
+//        }else {
+//            mEmail.setError(null);
+//        }
+//
+//        String password = mPasswordField.getText().toString();
+//        if(TextUtils.isEmpty(password)){
+//            mPasswordField.setError("Required");
+//            valid = false;
+//        }else{
+//            mPasswordField.setError(null);
+//        }
+//        return valid;
+//
+//    }
+//
+//    private void updateUI(FirebaseUser user){
+//
+//        if(user != null){
+//            mStatus.setText("Email User: " + user.getEmail());
+//            mDetails.setText("Firebase User: " + user.getUid());
+//
+//            findViewById(R.id.buttons).setVisibility(View.GONE);
+//            findViewById(R.id.email).setVisibility(View.GONE);
+//            findViewById(R.id.password).setVisibility(View.GONE);
+//            findViewById(R.id.signOut).setVisibility(View.VISIBLE);
+//        }else {
+//            mStatus.setText("Signed Out");
+//            mDetails.setText(null);
+//
+//            findViewById(R.id.buttons).setVisibility(View.VISIBLE);
+//            findViewById(R.id.email).setVisibility(View.VISIBLE);
+//            findViewById(R.id.password).setVisibility(View.VISIBLE);
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -275,19 +283,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.createAccount:
-                createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
-                break;
-            case R.id.email:
-                signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-                break;
-            case R.id.signOut:
-                signOut();
-                break;
-        }
-    }
+//
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()){
+//            case R.id.createAccount:
+//                createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+//                break;
+//            case R.id.email:
+//                signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
+//                break;
+//            case R.id.signOut:
+//                signOut();
+//                break;
+//        }
+//    }
 }
