@@ -13,7 +13,7 @@ public class Project {
     public String project_category;
     public int wishlist_counter;
     public int received_funds;
-    //[]milestones
+    public Milestones milestones;
     public int progress;
     public double start_date;
     public double end_date;
@@ -21,7 +21,7 @@ public class Project {
     //logo
 
 
-    public Project(int id, String name, String description, String ads_url, int needed_fund, String project_category, int wishlist_counter, int received_funds, int progress, double start_date, double end_date, int sme_id) {
+    public Project(int id, String name, String description, String ads_url, int needed_fund, String project_category, int wishlist_counter, int received_funds, Milestones milestones, int progress, double start_date, double end_date, int sme_id) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,10 +30,12 @@ public class Project {
         this.project_category = project_category;
         this.wishlist_counter = wishlist_counter;
         this.received_funds = received_funds;
+        this.milestones = milestones;
         this.progress = progress;
         this.start_date = start_date;
         this.end_date = end_date;
         this.sme_id = sme_id;
+        this.milestones = milestones;
     }
 
     public Project() {
@@ -133,5 +135,13 @@ public class Project {
 
     public void setSme_id(int sme_id) {
         this.sme_id = sme_id;
+    }
+
+    public Milestones getMilestones() {
+        return milestones;
+    }
+
+    public void setMilestones(Milestones milestones) {
+        this.milestones = milestones;
     }
 }

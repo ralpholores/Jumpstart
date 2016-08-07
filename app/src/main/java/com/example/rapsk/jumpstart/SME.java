@@ -12,18 +12,21 @@ public class SME {
     public String company_name;
     public String ads_url;
     public String email_address;
-    public String[] location;
     public String[] project_list;
     public String description;
+    public Location location;
+    public Project project;
 
-    public SME(String id, String company_name, String[] project_list,String ads_url, String email_address, String description) {
+    public SME(String id, String company_name,Location location,Project project,String ads_url, String email_address, String description) {
         this.id = id;
         this.company_name = company_name;
         this.ads_url = ads_url;
         this.email_address = email_address;
+        this.location = location;
 //        this.location = location;
         this.project_list = project_list;
         this.description = description;
+        this.project = project;
     }
 
     public SME() {
@@ -64,11 +67,11 @@ public class SME {
         this.email_address = email_address;
     }
 
-    public String[] getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String[] location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

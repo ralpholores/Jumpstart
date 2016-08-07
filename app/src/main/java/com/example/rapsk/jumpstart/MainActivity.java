@@ -43,18 +43,26 @@ public class MainActivity extends AppCompatActivity{
 
     private TextView mFirst,mStatus,mDetails;
     private EditText mId,mCompanyName,mProjectName,mProjectName2,mUrl,mDesc,mEmail,mEmailField,mPasswordField ;
+    private EditText mInvestorId,mFname,mLname,mInvestorEmail;
     private ListView mListView;
     ArrayList<String> mSmes = new ArrayList<>();
     private static final String TAG = "MainActivity";
 
 
     private DatabaseReference mDatabase;
-    Firebase mRef;
+    private FirebaseDatabase dbRef;
+    private DatabaseReference dbFirebase;
+    DatabaseReference dbfirebase2;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    SME[] sme = new SME[2];
+    SME sme = new SME();
+    Project project = new Project();
+    Location location = new Location();
+    Milestones milestones = new Milestones();
+    Investor investor = new Investor();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +73,18 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-        mRef = new Firebase("https://jumpstart-db0c6.firebaseio.com/Jumpstart");
-      //  mDatabase = FirebaseDatabase.getInstance().getReference();
-       // Toast.makeText(this,""+mDatabase,Toast.LENGTH_LONG).show();
-
+        dbRef = FirebaseDatabase.getInstance();
+        dbRef.setPersistenceEnabled(true);
+        dbFirebase = dbRef.getReference("Jumpstart/SME's");
+        dbfirebase2 = dbRef.getReference("Jumpstart/Investors");
 //        mFirst = (TextView) findViewById(R.id.first);
         mId = (EditText) findViewById(R.id.smeId);
         mCompanyName = (EditText) findViewById(R.id.companyName);
-        mProjectName = (EditText) findViewById(R.id.projectOne);
-        mProjectName2 = (EditText) findViewById(R.id.projectTwo);
-        mUrl = (EditText) findViewById(R.id.url);
-        mDesc = (EditText) findViewById(R.id.description);
         mEmail = (EditText) findViewById(R.id.emailAddress);
+        mInvestorId = (EditText) findViewById(R.id.investorID);
+        mFname = (EditText) findViewById(R.id.investorFirstname);
+        mLname = (EditText) findViewById(R.id.investorLastname);
+        mInvestorEmail = (EditText) findViewById(R.id.investorEmail);
 //        mListView = (ListView) findViewById(R.id.ListView);
 //
 //        mEmailField = (EditText) findViewById(R.id.email);
@@ -114,18 +122,43 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+//                String id = mId.getText().toString();
+//                String smeName = mCompanyName.getText().toString();
+//                String project1 = mProjectName.getText().toString();
+//                String project2 = mProjectName2.getText().toString();
+//                String[] list = new String[]{project1,project2};
+//                String ads_url = mUrl.getText().toString();
+//                String email = mEmail.getText().toString();
+//                String desc = mDesc.getText().toString();
+//                sme[0] = new SME(id,smeName,list,ads_url,email,desc);
+//                Map<String, SME[]> smes = new HashMap<String, SME[]>();
+//                smes.put("SME's",sme);
+//                mRef.child("SME's").setValue(sme);
+
                 String id = mId.getText().toString();
                 String smeName = mCompanyName.getText().toString();
-                String project1 = mProjectName.getText().toString();
-                String project2 = mProjectName2.getText().toString();
-                String[] list = new String[]{project1,project2};
-                String ads_url = mUrl.getText().toString();
+                String ads_url = "https://www.youtube.com/watch?v=4_SdDR5OU00";
                 String email = mEmail.getText().toString();
-                String desc = mDesc.getText().toString();
-                sme[0] = new SME(id,smeName,list,ads_url,email,desc);
-                Map<String, SME[]> smes = new HashMap<String, SME[]>();
-                smes.put("SME's",sme);
-                mRef.child("SME's").setValue(sme);
+                String desc = "Innovate and Transform";
+                String key = dbFirebase.push().getKey();
+                Location location  = new Location(192.16810,191.0291,"Basak");
+                Milestones milestones = new Milestones(1,"https://www.youtube.com/watch?v=4_SdDR5OU00","https://www.youtube.com/watch?v=4_SdDR5OU00","Started Building...");
+                Project list = new Project(1,"Innovation","Innovating Technologies","https://www.youtube.com/watch?v=4_SdDR5OU00",100000,"Technology",0,1000,milestones,0,12.01,10.01,1);
+                SME sme = new SME(id,smeName,location,list,ads_url,email,desc);
+
+                // Investor side...
+                String investorId = mInvestorId.getText().toString();
+                String firstName = mFname.getText().toString();
+                String lastName = mLname.getText().toString();
+                String investorEmail = mInvestorEmail.getText().toString();
+                int paymaya_id = 10291232;
+                int paypal_id = 4019231;
+                String key2 = dbfirebase2.push().getKey();
+                Investment investment = new Investment(list,15000,1000);
+                Investor investor = new Investor(investorId,firstName,lastName,investorEmail,paymaya_id,paypal_id,list,investment,location);
+
+                dbfirebase2.child(key2).setValue(investor);
+                dbFirebase.child(key).setValue(sme);
 
             }
         });

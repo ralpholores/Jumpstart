@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Jumpstart</string>
     <string name="action_settings">Settings</string>
+    <string name="addProject">Add Project</string>
+    <string name="Project">Project Id</string>
+    <string name="projectName">Project Name</string>
+    <string name="projectDesc">Project Description</string>
+    <string name="investor">Create Investor Dummy Data</string>
+    <string name="investorid">Investor ID</string>
+    <string name="fname">First Name</string>
+    <string name="lname">Last Name</string>
+    <string name="email">Investor Email</string>
 </resources>

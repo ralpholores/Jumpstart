@@ -5,30 +5,35 @@ package com.example.rapsk.jumpstart;
  */
 public class Investor {
 
-    public int id;
+    public String id;
     public String last_name;
     public String first_name;
     public String email_address;
-    public String location;
+    public int paymaya_id;
+    public int paypal_id;
+    public Project wishlist;
+    public Investment investment;
+    public Location location;
 
-    //lacking []project, []investments;
-
-    public Investor(int id, String last_name, String first_name, String email_address, String location) {
+    public Investor(String id, String last_name, String first_name, String email_address, int paymaya_id, int paypal_id, Project wishlist, Investment investment, Location location) {
         this.id = id;
         this.last_name = last_name;
         this.first_name = first_name;
         this.email_address = email_address;
+        this.paymaya_id = paymaya_id;
+        this.paypal_id = paypal_id;
+        this.wishlist = wishlist;
+        this.investment = investment;
         this.location = location;
     }
-
     public Investor() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -56,11 +61,43 @@ public class Investor {
         this.email_address = email_address;
     }
 
-    public String getLocation() {
+    public int getPaymaya_id() {
+        return paymaya_id;
+    }
+
+    public void setPaymaya_id(int paymaya_id) {
+        this.paymaya_id = paymaya_id;
+    }
+
+    public int getPaypal_id() {
+        return paypal_id;
+    }
+
+    public void setPaypal_id(int paypal_id) {
+        this.paypal_id = paypal_id;
+    }
+
+    public Project getWishlist() {
+        return wishlist;
+    }
+
+    public void setWishlist(Project wishlist) {
+        this.wishlist = wishlist;
+    }
+
+    public Investment getInvestment() {
+        return investment;
+    }
+
+    public void setInvestment(Investment investment) {
+        this.investment = investment;
+    }
+
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 }

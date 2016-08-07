@@ -30,32 +30,41 @@
         android:layout_height="wrap_content"
         android:id="@+id/companyName"
         android:hint="Company Name"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/projectOne"
-        android:hint="PROJECT NAME"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/projectTwo"
-        android:hint="PROJECT NAME"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/url"
-        android:hint="URL"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/emailAddress"
         android:hint="Email Address"
         android:inputType="textEmailAddress"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/investor"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/description"
-        android:hint="Description"/>
+        android:id="@+id/investorID"
+        android:hint="@string/investorid"
+        android:inputType="number"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/investorFirstname"
+        android:hint="@string/fname"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/investorLastname"
+        android:hint="@string/lname"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/investorEmail"
+        android:hint="@string/email"/>
+
     <!--<EditText-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
