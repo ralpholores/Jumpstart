@@ -71,11 +71,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mEmail = (EditText) findViewById(R.id.emailAddress);
         mListView = (ListView) findViewById(R.id.list_item);
 
-        project_list = new ArrayList<Project>();
-        project_list.add(new Project(1,"Innovation","Innovating Technologies","https://www.youtube.com/watch?v=4_SdDR5OU00",100000,"Technology",0,1000,milestones,0,12.01,10.01,1));
-        project_list.add(new Project(2,"Technology","Innovating Technologies","https://www.youtube.com/watch?v=4_SdDR5OU00",100000,"Technology",0,1000,milestones,0,12.01,10.01,1));
 
-        Query dQuery = dbFirebase.orderByChild("company_name").equalTo("san mig");
+        project_list = new ArrayList<>();
+        Query dQuery = dbFirebase.orderByChild("company_name").equalTo("usjr");
         dQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,15 +84,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     DataSnapshot snapshot = iterator.next();
                     SME sme = snapshot.getValue(SME.class);
 
+                        project_list.add(new Project(1,"Innovation","Innovating Technologies","https://www.youtube.com/watch?v=4_SdDR5OU00",123456,"Technology",35,1000,milestones,0,12.01,10.01,1));
                         neededFund = project_list.get(0).getNeeded_fund();
                         int receivedFund = project_list.get(0).getReceived_funds();
                         String projectName = project_list.get(0).getName();
                         mFirst.setText("Project Name: " + projectName + " Needed Fund: "+neededFund+ " Received Fund :" + receivedFund);
+
+
                 }
 
 
                 GridView adapter = new GridView(MainActivity.this,R.layout.grid_layout, project_list);
                 mListView.setAdapter(adapter);
+
             }
 
 
