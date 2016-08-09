@@ -2,6 +2,8 @@ package com.example.rapsk.jumpstart;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.ArrayList;
+
 /**
  * Created by RAPSK on 7/17/2016.
  */
@@ -12,21 +14,18 @@ public class SME {
     public String company_name;
     public String ads_url;
     public String email_address;
-    public String[] project_list;
+    public ArrayList<Project> project_list;
     public String description;
     public Location location;
-    public Project project;
 
-    public SME(String id, String company_name,Location location,Project project,String ads_url, String email_address, String description) {
+    public SME(String id, String company_name, String ads_url, String email_address, ArrayList<Project> project_list, String description, Location location) {
         this.id = id;
         this.company_name = company_name;
         this.ads_url = ads_url;
         this.email_address = email_address;
-        this.location = location;
-//        this.location = location;
         this.project_list = project_list;
         this.description = description;
-        this.project = project;
+        this.location = location;
     }
 
     public SME() {
@@ -75,13 +74,6 @@ public class SME {
         this.location = location;
     }
 
-    public String[] getProject_list() {
-        return project_list;
-    }
-
-    public void setProject_list(String[] project_list) {
-        this.project_list = project_list;
-    }
 
     public String getDescription() {
         return description;
@@ -89,5 +81,13 @@ public class SME {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ArrayList<Project> getProject_list() {
+        return project_list;
+    }
+
+    public void setProject_list(ArrayList<Project> project_list) {
+        this.project_list = project_list;
     }
 }

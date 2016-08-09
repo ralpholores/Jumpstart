@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:id="@+id/project"
+        android:layout_toRightOf="@+id/image"
+        android:textSize="20sp"
+        android:text="Project/SME"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/need"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/project"
+        android:textSize="15sp"
+        android:text="Needed Fund: P1000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/invested"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/need"
+        android:textSize="15sp"
+        android:text="Invested Money: P1000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/image"
+        android:max="100"
+        android:layout_below="@+id/invested"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
+</RelativeLayout>
