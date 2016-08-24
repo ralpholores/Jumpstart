@@ -10,4 +10,6 @@
     <string name="fname">First Name</string>
     <string name="lname">Last Name</string>
     <string name="email">Investor Email</string>
+    <string name="needFundLabel">Needed Fund:</string>
+    <string name="received">Received Fund:</string>
 </resources>

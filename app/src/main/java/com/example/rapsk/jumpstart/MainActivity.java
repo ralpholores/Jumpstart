@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.internal.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
@@ -52,6 +54,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Investor investor = new Investor();
     int neededFund;
 
+
+    ViewPager vPager;
+    PagerAdapter adapter;
+    String[] smeName;
+    String[] smeNeedFund;
+    String[] smeFundReceived;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,72 +70,78 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
 
+        smeName = new String[]{"San Miguel","USJ-R","Miguelitos"};
+        smeNeedFund = new String[]{"1500","2000","1700"};
+        smeFundReceived = new String[]{"100","500","800"};
+        vPager = (ViewPager) findViewById(R.id.pager);
+        adapter = new ViewPagerAdapter(MainActivity.this,smeName,smeFundReceived,smeNeedFund);
+        vPager.setAdapter(adapter);
+//        dbRef = FirebaseDatabase.getInstance();
+//        dbRef.setPersistenceEnabled(true);
+//        dbFirebase = dbRef.getReference("Jumpstart/SME's");
+//////        dbfirebase2 = dbRef.getReference("Investors");
+//        mFirst = (TextView) findViewById(R.id.first);
+//        mId = (EditText) findViewById(R.id.smeId);
+//        mCompanyName = (EditText) findViewById(R.id.companyName);
+//        mEmail = (EditText) findViewById(R.id.emailAddress);
+//        mListView = (ListView) findViewById(R.id.list_item);
+//
+//
+//        project_list = new ArrayList<>();
+//        Query dQuery = dbFirebase.orderByChild("company_name").equalTo("usjr");
+//        dQuery.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Iterable <DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
+//                Iterator <DataSnapshot> iterator = snapshotIterator.iterator();
+//
+//                while (iterator.hasNext()){
+//                    DataSnapshot snapshot = iterator.next();
+//                    SME sme = snapshot.getValue(SME.class);
+//
+//                        project_list.add(new Project(1,"Innovation","Innovating Technologies","https://www.youtube.com/watch?v=4_SdDR5OU00",123456,"Technology",35,1000,milestones,0,12.01,10.01,1));
+//                        neededFund = project_list.get(0).getNeeded_fund();
+//                        int receivedFund = project_list.get(0).getReceived_funds();
+//                        String projectName = project_list.get(0).getName();
+//                        mFirst.setText("Project Name: " + projectName + " Needed Fund: "+neededFund+ " Received Fund :" + receivedFund);
+//
+//
+//                }
+//
+//
+//                GridView adapter = new GridView(MainActivity.this,R.layout.grid_layout, project_list);
+//                mListView.setAdapter(adapter);
+//
+//            }
+//
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//                String id = mId.getText().toString();
+//                String smeName = mCompanyName.getText().toString();
+//                String ads_url = "https://www.youtube.com/watch?v=4_SdDR5OU00";
+//                String email = mEmail.getText().toString();
+//                String desc = "Innovate and Transform";
+//                String key = dbFirebase.push().getKey();
+//                Location location  = new Location(192.16810,191.0291,"Basak");
+//                Milestones milestones = new Milestones(1,"https://www.youtube.com/watch?v=4_SdDR5OU00","https://www.youtube.com/watch?v=4_SdDR5OU00","Started Building...");
+//
+//                SME sme = new SME(id,smeName,ads_url,email,project_list,desc,location);
+//
+//                dbFirebase.child(key).setValue(sme);
+//
+//            }
+//        });
 
-        dbRef = FirebaseDatabase.getInstance();
-        dbRef.setPersistenceEnabled(true);
-        dbFirebase = dbRef.getReference("Jumpstart/SME's");
-////        dbfirebase2 = dbRef.getReference("Investors");
-        mFirst = (TextView) findViewById(R.id.first);
-        mId = (EditText) findViewById(R.id.smeId);
-        mCompanyName = (EditText) findViewById(R.id.companyName);
-        mEmail = (EditText) findViewById(R.id.emailAddress);
-        mListView = (ListView) findViewById(R.id.list_item);
-
-
-        project_list = new ArrayList<>();
-        Query dQuery = dbFirebase.orderByChild("company_name").equalTo("usjr");
-        dQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable <DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
-                Iterator <DataSnapshot> iterator = snapshotIterator.iterator();
-
-                while (iterator.hasNext()){
-                    DataSnapshot snapshot = iterator.next();
-                    SME sme = snapshot.getValue(SME.class);
-
-                        project_list.add(new Project(1,"Innovation","Innovating Technologies","https://www.youtube.com/watch?v=4_SdDR5OU00",123456,"Technology",35,1000,milestones,0,12.01,10.01,1));
-                        neededFund = project_list.get(0).getNeeded_fund();
-                        int receivedFund = project_list.get(0).getReceived_funds();
-                        String projectName = project_list.get(0).getName();
-                        mFirst.setText("Project Name: " + projectName + " Needed Fund: "+neededFund+ " Received Fund :" + receivedFund);
-
-
-                }
-
-
-                GridView adapter = new GridView(MainActivity.this,R.layout.grid_layout, project_list);
-                mListView.setAdapter(adapter);
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                String id = mId.getText().toString();
-                String smeName = mCompanyName.getText().toString();
-                String ads_url = "https://www.youtube.com/watch?v=4_SdDR5OU00";
-                String email = mEmail.getText().toString();
-                String desc = "Innovate and Transform";
-                String key = dbFirebase.push().getKey();
-                Location location  = new Location(192.16810,191.0291,"Basak");
-                Milestones milestones = new Milestones(1,"https://www.youtube.com/watch?v=4_SdDR5OU00","https://www.youtube.com/watch?v=4_SdDR5OU00","Started Building...");
-
-                SME sme = new SME(id,smeName,ads_url,email,project_list,desc,location);
-
-                dbFirebase.child(key).setValue(sme);
-
-            }
-        });
     }
 
     @Override
