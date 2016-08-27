@@ -1,4 +1,4 @@
-package com.example.rapsk.jumpstart;
+package com.example.rapsk.jumpstart.Home.entities;
 
 /**
  * Created by cicct on 8/6/2016.

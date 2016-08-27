@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Jumpstart</string>
     <string name="action_settings">Settings</string>
     <string name="addProject">Add Project</string>
     <string name="Project">Project Id</string>
@@ -12,4 +11,13 @@
     <string name="email">Investor Email</string>
     <string name="needFundLabel">Needed Fund:</string>
     <string name="received">Received Fund:</string>
+    <string name="app_name">Jumpstart</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_movie_details">MovieDetailsActivity</string>
+    <string name="action_listview">ListView</string>
+    <string name="action_gridview">GridView</string>
+    <string name="listview_empty">There\'s no item in the listview.</string>
+    <string name="gridview_empty">There\'s no item in the gridview.</string>
+    <string name="action_recyclerview_list">RecyclerView - List</string>
+    <string name="action_recyclerview_grid">RecyclerView - Grid</string>
 </resources>

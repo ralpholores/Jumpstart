@@ -4,40 +4,67 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/smeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/labelNeeded"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/needFundLabel"
-        />
-    <TextView
-        android:id="@+id/fundNeeded"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/labelNeeded"
-        />
-    <TextView
-        android:id="@+id/labelReceived"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelNeeded"
-        android:text="@string/received"/>
-    <TextView
-        android:id="@+id/receivedFund"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fundNeeded"/>
+    <!--<TextView-->
+        <!--android:id="@+id/labelNeeded"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/needFundLabel"-->
+        <!--/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/fundNeeded"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toRightOf="@+id/labelNeeded"-->
+        <!--/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/labelReceived"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/labelNeeded"-->
+        <!--android:text="@string/received"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/receivedFund"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/fundNeeded"/>-->
+    <!--<ImageView-->
+        <!--android:id="@+id/logo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#000000"-->
+        <!--android:padding="1dp"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--/>-->
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:padding="1dp"
         android:layout_alignParentRight="true"
-        />
+        android:background="#ffffff"
+        android:padding="1dp"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+    android:id="@+id/smeName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="#2c3e50"
+    android:textSize="60px"
+    />
+
+    <TextView
+    android:id="@+id/fundNeeded"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/smeName"
+    android:layout_toRightOf="@id/logo"/>
+
+
+    <TextView
+    android:id="@+id/receivedFund"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/fundNeeded"
+    />
+
 </RelativeLayout>

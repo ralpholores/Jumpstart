@@ -1,4 +1,4 @@
-package com.example.rapsk.jumpstart;
+package com.example.rapsk.jumpstart.Adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.rapsk.jumpstart.R;
 
 /**
  * Created by RAPSK on 8/25/2016.
@@ -58,6 +60,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         imgLogo = (ImageView) itemView.findViewById(R.id.logo);
         imgLogo.setImageResource(R.mipmap.ic_launcher);
+        ((ViewPager) container).addView(itemView);
         return itemView;
     }
 

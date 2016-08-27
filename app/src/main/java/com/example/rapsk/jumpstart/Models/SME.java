@@ -1,4 +1,4 @@
-package com.example.rapsk.jumpstart;
+package com.example.rapsk.jumpstart.Models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 

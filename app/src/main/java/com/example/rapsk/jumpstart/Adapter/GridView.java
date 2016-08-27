@@ -9,12 +9,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.rapsk.jumpstart.Project;
+import com.example.rapsk.jumpstart.Models.Project;
 import com.example.rapsk.jumpstart.R;
-import com.example.rapsk.jumpstart.SME;
+import com.example.rapsk.jumpstart.Models.SME;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cicct on 8/8/2016.

@@ -1,4 +1,4 @@
-package com.example.rapsk.jumpstart;
+package com.example.rapsk.jumpstart.Models;
 
 /**
  * Created by RAPSK on 7/18/2016.
