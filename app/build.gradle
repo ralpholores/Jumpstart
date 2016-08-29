@@ -24,6 +24,7 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.TXT'
         exclude 'META-INF/NOTICE'
+
     }
 }
 
@@ -39,5 +40,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:cardview-v7:22.1.1'
     compile 'com.android.support:recyclerview-v7:22.1.1'
+    compile 'com.android.support:cardview-v7:22.0.+'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -1,6 +1,8 @@
 package com.example.rapsk.jumpstart;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rapsk.jumpstart.Models.Investor;
@@ -13,23 +15,30 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by cicct on 8/25/2016.
  */
 public class AdvertisementActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
+    private TextView mSMEDesc;
     public static final String API_KEY = "AIzaSyDkvVOvdSVoFSQBzkDdvmpH9yKbDzyBF7Y";
     public static final String VIDEO_ID = "acqGJy-c9N4";
+    public static final String TAG = AdvertisementActivity.class.getSimpleName();
 
     private DatabaseReference mDatabase;
     private FirebaseDatabase dbRef;
     private DatabaseReference dbFirebase;
     DatabaseReference dbfirebase2;
+
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -40,15 +49,46 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
     Location location = new Location();
     Milestones milestones = new Milestones();
     Investor investor = new Investor();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.youtubeapi_activity);
+        mSMEDesc = (TextView) findViewById(R.id.smeDesc);
         dbRef = FirebaseDatabase.getInstance();
 //        dbRef.setPersistenceEnabled(true);
         dbFirebase = dbRef.getReference("Jumpstart/SME's");
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
         youTubePlayerView.initialize(API_KEY,this);
+
+        dbFirebase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d(TAG,"onChildAdded: " + dataSnapshot.getKey());
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
