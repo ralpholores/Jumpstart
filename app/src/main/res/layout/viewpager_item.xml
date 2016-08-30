@@ -35,36 +35,5 @@
         <!--android:padding="1dp"-->
         <!--android:layout_alignParentRight="true"-->
         <!--/>-->
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="#ffffff"
-        android:padding="1dp"
-        android:scaleType="fitCenter"/>
-
-    <TextView
-    android:id="@+id/smeName"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#2c3e50"
-    android:textSize="60px"
-    />
-
-    <TextView
-    android:id="@+id/fundNeeded"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/smeName"
-    android:layout_toRightOf="@id/logo"/>
-
-
-    <TextView
-    android:id="@+id/receivedFund"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/fundNeeded"
-    />
 
 </RelativeLayout>

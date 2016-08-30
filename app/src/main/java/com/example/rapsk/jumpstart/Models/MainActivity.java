@@ -65,9 +65,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         smeName = new String[]{"San Miguel","USJ-R","Miguelitos"};
         smeNeedFund = new String[]{"1500","2000","1700"};
         smeFundReceived = new String[]{"100","500","800"};
-        vPager = (ViewPager) findViewById(R.id.pager);
-        adapter = new ViewPagerAdapter(MainActivity.this,smeName,smeFundReceived,smeNeedFund);
-        vPager.setAdapter(adapter);
 //        dbRef = FirebaseDatabase.getInstance();
 //        dbRef.setPersistenceEnabled(true);
 //        dbFirebase = dbRef.getReference("Jumpstart/SME's");

@@ -10,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.rapsk.jumpstart.Models.SME;
 import com.example.rapsk.jumpstart.R;
+
+import java.util.List;
 
 /**
  * Created by RAPSK on 8/25/2016.
@@ -19,12 +22,13 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     Context context;
     String[] smeNames;
-    String[] smeNeedFund;
-    String[] smeFundReceived;
+    int[] smeNeedFund;
+    int[] smeFundReceived;
+    List<SME> smeLists;
     LayoutInflater inflater;
 
 
-    public ViewPagerAdapter(Context context, String[] smeName, String[] smeNeedFund, String[] smeFundReceived) {
+    public ViewPagerAdapter(Context context, String[] smeName, int[] smeNeedFund, int[] smeFundReceived) {
         this.context = context;
         this.smeNames = smeName;
         this.smeNeedFund = smeNeedFund;
@@ -33,7 +37,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return smeNames.length;
+        return smeLists.size();
     }
 
     @Override
@@ -44,22 +48,23 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
+        SME sme = smeLists.get(position);
         TextView txtNeededFund;
         TextView txtReceivedFund;
         TextView txtSMEName;
         ImageView imgLogo;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.viewpager_item,container,false);
-        txtNeededFund = (TextView) itemView.findViewById(R.id.fundNeeded);
-        txtReceivedFund = (TextView) itemView.findViewById(R.id.receivedFund);
+        View itemView = inflater.inflate(R.layout.youtubeapi_activity,container,false);
+//        txtNeededFund = (TextView) itemView.findViewById(R.id.fundNeeded);
+//        txtReceivedFund = (TextView) itemView.findViewById(R.id.receivedFund);
         txtSMEName = (TextView) itemView.findViewById(R.id.smeName);
 
-        txtNeededFund.setText(smeNeedFund[position]);
-        txtReceivedFund.setText(smeFundReceived[position]);
-        txtSMEName.setText(smeNames[position]);
+//        txtNeededFund.setText(sme.getProject_list().get(position).getNeeded_fund());
+//        txtReceivedFund.setText(sme.getProject_list().get(position).getReceived_funds());
+        txtSMEName.setText(sme.getCompany_name());
 
-        imgLogo = (ImageView) itemView.findViewById(R.id.logo);
-        imgLogo.setImageResource(R.mipmap.ic_launcher);
+//        imgLogo = (ImageView) itemView.findViewById(R.id.logo);
+//        imgLogo.setImageResource(R.mipmap.ic_launcher);
         ((ViewPager) container).addView(itemView);
         return itemView;
     }
