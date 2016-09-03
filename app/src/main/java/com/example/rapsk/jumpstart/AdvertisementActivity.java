@@ -29,8 +29,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.apache.http.cookie.SM;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +48,7 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
     public static final String VIDEO_ID = "acqGJy-c9N4";
     public static final String TAG = AdvertisementActivity.class.getSimpleName();
 
-    private DatabaseReference dbRef;
+    private FirebaseDatabase dbRef;
     private DatabaseReference dbFirebase;
 
 
@@ -76,79 +79,36 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
         mNeededFund = (TextView) findViewById(R.id.neededFund);
         mPrgProject = (ProgressBar) findViewById(R.id.prgProject);
         mProjectProg = (TextView) findViewById(R.id.prgLabel);
-        dbRef = FirebaseDatabase.getInstance().getReference();
+        dbRef = FirebaseDatabase.getInstance();
 //        dbRef.setPersistenceEnabled(true);
-//        dbFirebase = dbRef.getReference("Jumpstart/SME's");
+        dbFirebase = dbRef.getReference("Jumpstart/SME's");
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
         youTubePlayerView.initialize(API_KEY,this);
-        ChildEventListener childEventListener = new ChildEventListener() {
+
+
+        dbFirebase.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ValueEventListener valueEventListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                smeList = new ArrayList<>();
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
 
-                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            SME sme = dataSnapshot1.getValue(SME.class);
-                            smeList.add(sme);
-                        }
-                        System.out.println(""+smeList.size());
-                        mSMEName.setText(""+smeList.get(0).getCompany_name());
-                        mSMEDesc.setText(""+smeList.get(0).getDescription());
-                        mNeededFund.setText(""+smeList.get(0).getProject_list().get(0).getNeeded_fund());
-                        mReceivedFund.setText(""+smeList.get(0).getProject_list().get(0).getReceived_funds());
-                        mPrgProject.setProgress(smeList.get(0).getProject_list().get(0).getProgress());
-                        mProjectProg.setText(""+smeList.get(0).getProject_list().get(0).getProgress() + "%");
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                };
-                dbRef.child("Jumpstart").child("SME's").addValueEventListener(valueEventListener);
-//                viewPager = (ViewPager) findViewById(R.id.pager);
-//                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeNeededFund,smeReceivedFund);
-//                viewPager.setAdapter(adapter);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                SME sme = dataSnapshot.getValue(SME.class);
-                smeList.add(sme);
-
-                System.out.println(""+smeList.get(0).getCompany_name());
-                mSMEName.setText(""+smeList.get(0).getCompany_name());
-                mSMEDesc.setText(""+smeList.get(0).getDescription());
-                mNeededFund.setText(""+smeList.get(0).getProject_list().get(0).getNeeded_fund());
-                mReceivedFund.setText(""+smeList.get(0).getProject_list().get(0).getReceived_funds());
-                mPrgProject.setProgress(smeList.get(0).getProject_list().get(0).getProgress());
-                mProjectProg.setText(""+smeList.get(0).getProject_list().get(0).getProgress() + "%");
-
-//
-//                viewPager = (ViewPager) findViewById(R.id.pager);
-//                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeNeededFund,smeReceivedFund);
-//                viewPager.setAdapter(adapter);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                while(iterator.hasNext()){
+                    SME sme = iterator.next().getValue(SME.class);
+                    smeList.add(sme);
+                }
+                System.out.println(""+smeList);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
-        dbRef.child("Jumpstart").child("SME's").addChildEventListener(childEventListener);
+        });
+//                viewPager = (ViewPager) findViewById(R.id.pager);
+//                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeNeededFund,smeReceivedFund);
+//                viewPager.setAdapter(adapter);
+
 
     }
 
