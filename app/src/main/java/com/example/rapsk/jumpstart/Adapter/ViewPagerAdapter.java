@@ -37,7 +37,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return smeLists.size();
+        return smeNames.length;
     }
 
     @Override
@@ -54,15 +54,15 @@ public class ViewPagerAdapter extends PagerAdapter {
         TextView txtSMEName;
         ImageView imgLogo;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.youtubeapi_activity,container,false);
+        View itemView = inflater.inflate(R.layout.viewpager_item,container,false);
 //        txtNeededFund = (TextView) itemView.findViewById(R.id.fundNeeded);
 //        txtReceivedFund = (TextView) itemView.findViewById(R.id.receivedFund);
-        txtSMEName = (TextView) itemView.findViewById(R.id.smeName);
-
-//        txtNeededFund.setText(sme.getProject_list().get(position).getNeeded_fund());
-//        txtReceivedFund.setText(sme.getProject_list().get(position).getReceived_funds());
-        txtSMEName.setText(sme.getCompany_name());
-
+//        txtSMEName = (TextView) itemView.findViewById(R.id.labelNeeded);
+//
+//        txtNeededFund.setText(smeNeedFund[position]);
+//        txtReceivedFund.setText(smeFundReceived[position]);
+//        txtSMEName.setText(smeNames[position]);
+//
 //        imgLogo = (ImageView) itemView.findViewById(R.id.logo);
 //        imgLogo.setImageResource(R.mipmap.ic_launcher);
         ((ViewPager) container).addView(itemView);

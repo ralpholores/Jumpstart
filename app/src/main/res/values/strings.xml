@@ -20,4 +20,6 @@
     <string name="gridview_empty">There\'s no item in the gridview.</string>
     <string name="action_recyclerview_list">RecyclerView - List</string>
     <string name="action_recyclerview_grid">RecyclerView - Grid</string>
+    <string name="NeededFund">Needed Fund:</string>
+    <string name="ReceivedFund">Received Fund:</string>
 </resources>

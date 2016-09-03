@@ -74,7 +74,6 @@ public class SME {
         this.location = location;
     }
 
-
     public String getDescription() {
         return description;
     }
