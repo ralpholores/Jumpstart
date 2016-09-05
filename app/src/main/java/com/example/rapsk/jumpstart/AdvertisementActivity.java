@@ -30,8 +30,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.apache.http.cookie.SM;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +49,7 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
     public static final String VIDEO_ID = "acqGJy-c9N4";
     public static final String TAG = AdvertisementActivity.class.getSimpleName();
 
-    private DatabaseReference dbRef;
+    private FirebaseDatabase dbRef;
     private DatabaseReference dbFirebase;
 
 
@@ -78,12 +81,17 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
 //        mNeededFund = (TextView) findViewById(R.id.neededFund);
         mPrgProject = (ProgressBar) findViewById(R.id.prgProject);
         mProjectProg = (TextView) findViewById(R.id.prgLabel);
+<<<<<<< HEAD
 
         dbRef = FirebaseDatabase.getInstance().getReference();
+=======
+        dbRef = FirebaseDatabase.getInstance();
+>>>>>>> c3033aff1ae8f34af8019dd1c448c5b47f231cf8
 //        dbRef.setPersistenceEnabled(true);
-//        dbFirebase = dbRef.getReference("Jumpstart/SME's");
+        dbFirebase = dbRef.getReference("Jumpstart/SME's");
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
         youTubePlayerView.initialize(API_KEY,this);
+<<<<<<< HEAD
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -132,6 +140,35 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
 //                viewPager.setAdapter(adapter);
 
 
+=======
+
+
+        dbFirebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                smeList = new ArrayList<>();
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+
+                while(iterator.hasNext()){
+                    SME sme = iterator.next().getValue(SME.class);
+                    smeList.add(sme);
+                }
+                System.out.println(""+smeList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+//                viewPager = (ViewPager) findViewById(R.id.pager);
+//                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeNeededFund,smeReceivedFund);
+//                viewPager.setAdapter(adapter);
+
+
+    }
+>>>>>>> c3033aff1ae8f34af8019dd1c448c5b47f231cf8
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
