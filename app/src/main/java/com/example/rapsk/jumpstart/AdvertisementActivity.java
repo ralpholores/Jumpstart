@@ -6,6 +6,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,8 +57,9 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
     List<SME> smeList = new ArrayList<>();
     ViewPager viewPager;
     PagerAdapter adapter;
-    String[] smeNames = new String[smeList.size()];
-    int[] smeNeededFund,smeReceivedFund;
+    String[] smeNames = new String[10];
+    int[] smeNeededFund = new int[10];
+    int[] smeReceivedFund = new int[10];
 
     SME sme = new SME();
     Project project = new Project();
@@ -71,19 +73,17 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.youtubeapi_activity);
         mSMEDesc = (TextView) findViewById(R.id.smeDesc);
-        mSMEName = (TextView) findViewById(R.id.smeName);
-        mReceivedFund = (TextView) findViewById(R.id.receivedFund);
-        mNeededFund = (TextView) findViewById(R.id.neededFund);
+////        mSMEName = (TextView) findViewById(R.id.smeName);
+//        mReceivedFund = (TextView) findViewById(R.id.receivedFund);
+//        mNeededFund = (TextView) findViewById(R.id.neededFund);
         mPrgProject = (ProgressBar) findViewById(R.id.prgProject);
         mProjectProg = (TextView) findViewById(R.id.prgLabel);
+
         dbRef = FirebaseDatabase.getInstance().getReference();
 //        dbRef.setPersistenceEnabled(true);
 //        dbFirebase = dbRef.getReference("Jumpstart/SME's");
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
         youTubePlayerView.initialize(API_KEY,this);
-        ChildEventListener childEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -92,13 +92,25 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
                             SME sme = dataSnapshot1.getValue(SME.class);
                             smeList.add(sme);
                         }
-                        System.out.println(""+smeList.size());
-                        mSMEName.setText(""+smeList.get(0).getCompany_name());
-                        mSMEDesc.setText(""+smeList.get(0).getDescription());
-                        mNeededFund.setText(""+smeList.get(0).getProject_list().get(0).getNeeded_fund());
-                        mReceivedFund.setText(""+smeList.get(0).getProject_list().get(0).getReceived_funds());
-                        mPrgProject.setProgress(smeList.get(0).getProject_list().get(0).getProgress());
-                        mProjectProg.setText(""+smeList.get(0).getProject_list().get(0).getProgress() + "%");
+                        smeNeededFund = new int[smeList.size()];
+                        smeReceivedFund = new int[smeList.size()];
+                        smeNames = new String[smeList.size()];
+
+                        for(int i = 0;i < smeList.size();i++){
+
+                            smeNames[i] = smeList.get(i).getCompany_name();
+                            smeReceivedFund[i] = smeList.get(i).getProject_list().get(0).getReceived_funds();
+                            smeNeededFund[i] = smeList.get(i).getProject_list().get(0).getNeeded_fund();
+                        }
+                        for(int i = 0;i < smeList.size();i++) {
+                            System.out.println("SIZE: " + smeNames.length + "FUNDS: " + smeReceivedFund.length);
+                        }
+//                        mSMEName.setText(""+smeList.get(0).getCompany_name());
+//                        mSMEDesc.setText(""+smeList.get(0).getDescription());
+//                        mNeededFund.setText(""+smeList.get(0).getProject_list().get(0).getNeeded_fund());
+//                        mReceivedFund.setText(""+smeList.get(0).getProject_list().get(0).getReceived_funds());
+//                        mPrgProject.setProgress(smeList.get(0).getProject_list().get(0).getProgress());
+//                        mProjectProg.setText(""+smeList.get(0).getProject_list().get(0).getProgress() + "%");
 
                     }
 
@@ -108,49 +120,18 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
                     }
                 };
                 dbRef.child("Jumpstart").child("SME's").addValueEventListener(valueEventListener);
-//                viewPager = (ViewPager) findViewById(R.id.pager);
-//                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeNeededFund,smeReceivedFund);
-//                viewPager.setAdapter(adapter);
+                viewPager = (ViewPager) findViewById(R.id.pager);
+                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeReceivedFund,smeNeededFund);
+                viewPager.setAdapter(adapter);
             }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                SME sme = dataSnapshot.getValue(SME.class);
-                smeList.add(sme);
-
-                System.out.println(""+smeList.get(0).getCompany_name());
-                mSMEName.setText(""+smeList.get(0).getCompany_name());
-                mSMEDesc.setText(""+smeList.get(0).getDescription());
-                mNeededFund.setText(""+smeList.get(0).getProject_list().get(0).getNeeded_fund());
-                mReceivedFund.setText(""+smeList.get(0).getProject_list().get(0).getReceived_funds());
-                mPrgProject.setProgress(smeList.get(0).getProject_list().get(0).getProgress());
-                mProjectProg.setText(""+smeList.get(0).getProject_list().get(0).getProgress() + "%");
 
 //
 //                viewPager = (ViewPager) findViewById(R.id.pager);
 //                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeNeededFund,smeReceivedFund);
 //                viewPager.setAdapter(adapter);
-            }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        dbRef.child("Jumpstart").child("SME's").addChildEventListener(childEventListener);
-
-    }
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
@@ -163,18 +144,18 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
         }
     }
 //
-////    @Override
-////    protected void onStart() {
-////        super.onStart();
-////        project_list = new ArrayList<>();
-////        String key = dbFirebase.push().getKey();
-////        location = new Location(192.15,192.31,"Basak");
-////        project_list.add(new Project(1,"Cookies","Cookies so delicious","https://www.youtube.com/watch?v=4_SdDR5OU00",123456,"Pastries",35,1000,milestones,0,12.01,10.01,1));
-////        project_list.add(new Project(2,"Bread","Bread affordable","https://www.youtube.com/watch?v=4_SdDR5OU00",5000,"Pastries",5,500,milestones,0,12.01,10.01,1));
-////        SME sme = new SME("1","McDonalds","https://www.youtube.com/watch?v=4_SdDR5OU00","oloresralph@gmail.com",project_list,"Eat more!",location);
-////        dbFirebase.child(key).setValue(sme);
-////    }
-//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        project_list = new ArrayList<>();
+//        String key = dbFirebase.push().getKey();
+//        location = new Location(192.15,192.31,"Basak");
+//        project_list.add(new Project(1,"Cookies","Cookies so delicious","https://www.youtube.com/watch?v=4_SdDR5OU00",123456,"Pastries",35,1000,milestones,0,12.01,10.01,1));
+//        project_list.add(new Project(2,"Bread","Bread affordable","https://www.youtube.com/watch?v=4_SdDR5OU00",5000,"Pastries",5,500,milestones,0,12.01,10.01,1));
+//        SME sme = new SME("1","McDonalds","https://www.youtube.com/watch?v=4_SdDR5OU00","oloresralph@gmail.com",project_list,"Eat more!",location);
+//        dbFirebase.child(key).setValue(sme);
+//    }
+
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
          Toast.makeText(this, "Failed to Initialize!", Toast.LENGTH_SHORT).show();

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @IgnoreExtraProperties
 public class SME {
 
-    public String id;
+    public int id;
     public String company_name;
     public String ads_url;
     public String email_address;
@@ -18,7 +18,7 @@ public class SME {
     public String description;
     public Location location;
 
-    public SME(String id, String company_name, String ads_url, String email_address, ArrayList<Project> project_list, String description, Location location) {
+    public SME(int id, String company_name, String ads_url, String email_address, ArrayList<Project> project_list, String description, Location location) {
         this.id = id;
         this.company_name = company_name;
         this.ads_url = ads_url;
@@ -33,12 +33,11 @@ public class SME {
             // default constuctor for calling the DataSnapshot.getValue(User.class);
     }
 
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,17 +23,17 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     Context context;
     String[] smeNames;
-    int[] smeNeedFund;
-    int[] smeFundReceived;
+    int[] smeNeedFunds;
+    int[] smeFundsReceived;
     List<SME> smeLists;
     LayoutInflater inflater;
 
 
-    public ViewPagerAdapter(Context context, String[] smeName, int[] smeNeedFund, int[] smeFundReceived) {
+    public ViewPagerAdapter(Context context, String[] smeName,int[] smeFundReceived,int[] smeNeedFund) {
         this.context = context;
         this.smeNames = smeName;
-        this.smeNeedFund = smeNeedFund;
-        this.smeFundReceived = smeFundReceived;
+        this.smeFundsReceived = smeFundReceived;
+        this.smeNeedFunds = smeNeedFund;
     }
 
     @Override
@@ -42,26 +43,25 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((RelativeLayout) object);
+        return view == ((LinearLayout) object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        SME sme = smeLists.get(position);
         TextView txtNeededFund;
         TextView txtReceivedFund;
         TextView txtSMEName;
         ImageView imgLogo;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.viewpager_item,container,false);
-//        txtNeededFund = (TextView) itemView.findViewById(R.id.fundNeeded);
-//        txtReceivedFund = (TextView) itemView.findViewById(R.id.receivedFund);
-//        txtSMEName = (TextView) itemView.findViewById(R.id.labelNeeded);
+        View itemView = inflater.inflate(R.layout.youtubeapi_activity,container,false);
+        txtNeededFund = (TextView) itemView.findViewById(R.id.neededFund);
+        txtReceivedFund = (TextView) itemView.findViewById(R.id.receivedFund);
+        txtSMEName = (TextView) itemView.findViewById(R.id.smeName);
 //
-//        txtNeededFund.setText(smeNeedFund[position]);
-//        txtReceivedFund.setText(smeFundReceived[position]);
-//        txtSMEName.setText(smeNames[position]);
+        txtNeededFund.setText(""+smeNeedFunds[position]);
+        txtReceivedFund.setText(""+smeFundsReceived[position]);
+        txtSMEName.setText(smeNames[position]);
 //
 //        imgLogo = (ImageView) itemView.findViewById(R.id.logo);
 //        imgLogo.setImageResource(R.mipmap.ic_launcher);
@@ -71,6 +71,6 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((RelativeLayout) object);
+        ((ViewPager) container).removeView((LinearLayout) object);
     }
 }

@@ -9,12 +9,17 @@
         android:id="@+id/cv"
         >
 
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
             >
-
 
             <com.google.android.youtube.player.YouTubePlayerView
                 android:id="@+id/youtube_player"
@@ -88,37 +93,7 @@
                 android:layout_alignBottom="@id/prgProject"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"/>
-            <!--<ImageView-->
-                <!--android:id="@+id/logo"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:background="#ffffff"-->
-                <!--android:padding="1dp"-->
-                <!--android:scaleType="fitCenter"/>-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/smeName"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textColor="#2c3e50"-->
-                <!--android:textSize="60px"-->
-                <!--/>-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/fundNeeded"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/smeName"-->
-                <!--android:layout_toRightOf="@id/logo"/>-->
-
-
-            <!--<TextView-->
-                <!--android:id="@+id/receivedFund"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/fundNeeded"-->
-                <!--/>-->
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
