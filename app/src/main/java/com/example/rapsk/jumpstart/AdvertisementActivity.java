@@ -49,7 +49,7 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
     public static final String VIDEO_ID = "acqGJy-c9N4";
     public static final String TAG = AdvertisementActivity.class.getSimpleName();
 
-    private FirebaseDatabase dbRef;
+    private DatabaseReference dbRef;
     private DatabaseReference dbFirebase;
 
 
@@ -81,17 +81,16 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
 //        mNeededFund = (TextView) findViewById(R.id.neededFund);
         mPrgProject = (ProgressBar) findViewById(R.id.prgProject);
         mProjectProg = (TextView) findViewById(R.id.prgLabel);
-<<<<<<< HEAD
 
         dbRef = FirebaseDatabase.getInstance().getReference();
-=======
-        dbRef = FirebaseDatabase.getInstance();
->>>>>>> c3033aff1ae8f34af8019dd1c448c5b47f231cf8
+
+//        dbRef = FirebaseDatabase.getInstance();
+
 //        dbRef.setPersistenceEnabled(true);
-        dbFirebase = dbRef.getReference("Jumpstart/SME's");
+//        dbFirebase = dbRef.getReference("Jumpstart/SME's");
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
         youTubePlayerView.initialize(API_KEY,this);
-<<<<<<< HEAD
+
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,8 +110,11 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
                             smeNeededFund[i] = smeList.get(i).getProject_list().get(0).getNeeded_fund();
                         }
                         for(int i = 0;i < smeList.size();i++) {
-                            System.out.println("SIZE: " + smeNames.length + "FUNDS: " + smeReceivedFund.length);
+                            System.out.println("SIZE: " + smeNames[i] + "FUNDS: " + smeReceivedFund[i]);
                         }
+                        viewPager = (ViewPager) findViewById(R.id.pager);
+                        adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeReceivedFund,smeNeededFund);
+                        viewPager.setAdapter(adapter);
 //                        mSMEName.setText(""+smeList.get(0).getCompany_name());
 //                        mSMEDesc.setText(""+smeList.get(0).getDescription());
 //                        mNeededFund.setText(""+smeList.get(0).getProject_list().get(0).getNeeded_fund());
@@ -128,9 +130,7 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
                     }
                 };
                 dbRef.child("Jumpstart").child("SME's").addValueEventListener(valueEventListener);
-                viewPager = (ViewPager) findViewById(R.id.pager);
-                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeReceivedFund,smeNeededFund);
-                viewPager.setAdapter(adapter);
+
             }
 
 
@@ -140,46 +140,17 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
 //                viewPager.setAdapter(adapter);
 
 
-=======
 
+@Override
+public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
+    youTubePlayer.setPlayerStateChangeListener(playerStateChangeListener);
+    youTubePlayer.setPlaybackEventListener(playbackEventListener);
 
-        dbFirebase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                smeList = new ArrayList<>();
-                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-
-                while(iterator.hasNext()){
-                    SME sme = iterator.next().getValue(SME.class);
-                    smeList.add(sme);
-                }
-                System.out.println(""+smeList);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-//                viewPager = (ViewPager) findViewById(R.id.pager);
-//                adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeNeededFund,smeReceivedFund);
-//                viewPager.setAdapter(adapter);
-
-
+    if(!wasRestored){
+        youTubePlayer.getDurationMillis();
+        youTubePlayer.loadVideo(VIDEO_ID);
     }
->>>>>>> c3033aff1ae8f34af8019dd1c448c5b47f231cf8
-
-    @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
-       youTubePlayer.setPlayerStateChangeListener(playerStateChangeListener);
-        youTubePlayer.setPlaybackEventListener(playbackEventListener);
-
-        if(!wasRestored){
-            youTubePlayer.getDurationMillis();
-            youTubePlayer.loadVideo(VIDEO_ID);
-        }
-    }
+}
 //
 //    @Override
 //    protected void onStart() {
@@ -195,7 +166,7 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-         Toast.makeText(this, "Failed to Initialize!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Failed to Initialize!", Toast.LENGTH_SHORT).show();
     }
 
     private YouTubePlayer.PlaybackEventListener playbackEventListener = new YouTubePlayer.PlaybackEventListener() {
@@ -248,5 +219,8 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
         public void onVideoStarted() {
         }
     };
+
+
+
 
 }
