@@ -28,7 +28,12 @@
                 android:background="#fff"
                 android:padding="5dp"
                 />
-
+            <!--<fragment-->
+                <!--android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/youtube_fragment"-->
+                <!--/>-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
