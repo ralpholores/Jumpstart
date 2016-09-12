@@ -22,6 +22,7 @@ import com.example.rapsk.jumpstart.Models.MainActivity;
 import com.example.rapsk.jumpstart.Models.Milestones;
 import com.example.rapsk.jumpstart.Models.Project;
 import com.example.rapsk.jumpstart.Models.SME;
+import com.github.ybq.parallaxviewpager.ParallaxViewPager;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -122,7 +123,7 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
                         for(int i = 0;i < smeList.size();i++) {
                             System.out.println("SIZE: " + smeNames[i] + "FUNDS: " + smeReceivedFund[i]);
                         }
-                        viewPager = (ViewPager) findViewById(R.id.pager);
+                        viewPager = (ParallaxViewPager) findViewById(R.id.viewpager);
                         adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeReceivedFund,smeNeededFund);
                         viewPager.setAdapter(adapter);
                     }

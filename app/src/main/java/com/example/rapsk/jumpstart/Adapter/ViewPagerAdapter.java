@@ -66,7 +66,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 //
 //        imgLogo = (ImageView) itemView.findViewById(R.id.logo);
 //        imgLogo.setImageResource(R.mipmap.ic_launcher);
-        ((ViewPager) container).addView(itemView);
+        ((ViewPager) container).addView(itemView, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         return itemView;
     }
 
