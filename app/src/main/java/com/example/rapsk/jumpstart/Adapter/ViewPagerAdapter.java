@@ -60,8 +60,8 @@ public class ViewPagerAdapter extends PagerAdapter {
         txtSMEName = (TextView) itemView.findViewById(R.id.smeName);
 //
 
-        txtNeededFund.setText(""+smeNeedFunds[position]);
-        txtReceivedFund.setText(""+smeFundsReceived[position]);
+        txtNeededFund.setText("Needed Funds: "+smeNeedFunds[position]);
+        txtReceivedFund.setText("Received Funds: "+smeFundsReceived[position]);
         txtSMEName.setText(smeNames[position]);
 //
 //        imgLogo = (ImageView) itemView.findViewById(R.id.logo);

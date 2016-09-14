@@ -36,7 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.apache.http.cookie.SM;
+//import org.apache.http.cookie.SM;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,8 +97,8 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
 
 //        dbRef.setPersistenceEnabled(true);
 //        dbFirebase = dbRef.getReference("Jumpstart/SME's");
-        YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
-        youTubePlayerView.initialize(API_KEY,this);
+//        YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
+//        youTubePlayerView.initialize(API_KEY,this);
 
 //        YouTubePlayerSupportFragment frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
 //        frag.initialize(API_KEY,this);
@@ -125,6 +125,7 @@ public class AdvertisementActivity extends YouTubeBaseActivity implements YouTub
                         }
                         viewPager = (ParallaxViewPager) findViewById(R.id.viewpager);
                         adapter = new ViewPagerAdapter(AdvertisementActivity.this,smeNames,smeReceivedFund,smeNeededFund);
+                        viewPager.setPageMargin(-450);
                         viewPager.setAdapter(adapter);
                     }
 
